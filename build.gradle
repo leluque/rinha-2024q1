@@ -1,0 +1,62 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.micronaut.application") version "4.3.2"
+    id("io.micronaut.aot") version "4.3.2"
+}
+
+version = "0.1"
+group = "br.com.leandroluque.rinha"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut.data:micronaut-data-r2dbc")
+    implementation("org.postgresql:r2dbc-postgresql")
+    implementation("io.r2dbc:r2dbc-pool")
+    implementation("io.micronaut.redis:micronaut-redis-lettuce")
+    compileOnly("io.micronaut:micronaut-http-client")
+    runtimeOnly("ch.qos.logback:logback-classic")
+}
+
+application {
+    mainClass.set("br.com.leandroluque.rinha.Executar")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("21")
+    targetCompatibility = JavaVersion.toVersion("21")
+}
+
+graalvmNative.toolchainDetection = true
+micronaut {
+    runtime("netty")
+    processing {
+        incremental(true)
+        annotations("br.com.leandroluque.rinha.*")
+    }
+    aot {
+        // Please review carefully the optimizations enabled below
+        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        optimizeServiceLoading = true
+        convertYamlToJava = true
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+    }
+}
+
+tasks.named("dockerfile") {
+}
+
+tasks.named("dockerfileNative") {
+    jdkVersion = "21"
+}
+
+

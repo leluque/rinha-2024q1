@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: br.com.leandroluque.rinha
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [app-name, data, data-r2dbc, flyway, graalvm, gradle, http-client-test, java, java-application, jdbc-hikari, junit, logback, micronaut-aot, micronaut-build, micronaut-http-validation, netty-server, postgres, properties, r2dbc, readme, serialization-jackson, shade, static-resources, test-resources]
