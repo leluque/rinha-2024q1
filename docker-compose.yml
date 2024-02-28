@@ -8,6 +8,8 @@ services:
     depends_on:
       - api1
       - api2
+      - api3
+      - api4
     ports:
       - "9999:9999"
     ulimits:
