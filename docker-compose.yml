@@ -8,8 +8,6 @@ services:
     depends_on:
       - api1
       - api2
-      - api3
-      - api4
     ports:
       - "9999:9999"
     ulimits:
@@ -38,9 +36,9 @@ services:
       BD_TYPE: postgres
       BD_USUARIO: usuario
       BD_SENHA: abc12345
-      BD_INITIAL_CONS: 11
-      BD_MAX_CONS: 13 
-      REDIS_THREAD_POOL_SIZE: 500
+      BD_INITIAL_CONS: 19
+      BD_MAX_CONS: 20
+      REDIS_THREAD_POOL_SIZE: 370
       REDIS_URL: redis://redis
     depends_on:
       - postgresql
@@ -54,21 +52,13 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.2"
-          memory: "65MB"
+          cpus: "0.4"
+          memory: "130MB"
     restart: "no"
 
   api2:
     <<: *api-template
     container_name: api2
-
-  api3:
-    <<: *api-template
-    container_name: api3
-
-  api4:
-    <<: *api-template
-    container_name: api4
 
   postgresql:
     container_name: postgresql
@@ -77,8 +67,8 @@ services:
       POSTGRES_USER: usuario
       POSTGRES_PASSWORD: abc12345
       POSTGRES_DB: bd
-    ports:
-      - "5432:5432"
+#    ports:
+#      - "5432:5432"
     command: >
       postgres -c checkpoint_completion_target=0.9
                -c checkpoint_timeout=1d
@@ -96,7 +86,7 @@ services:
                -c idle_in_transaction_session_timeout=0
                -c lock_timeout=0
                -c maintenance_work_mem=6400kB
-               -c max_connections=60
+               -c max_connections=50
                -c max_wal_size=4GB
                -c min_wal_size=1GB
                -c pg_stat_statements.max=10000
@@ -132,8 +122,8 @@ services:
     image: redis:alpine
     networks:
       - backend-network
-    ports:
-      - "6379:6379"
+#    ports:
+#      - "6379:6379"
     deploy:
       resources:
         limits:
