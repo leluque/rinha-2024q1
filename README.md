@@ -5,6 +5,8 @@ Este projeto contém uma implementação baseada em Java para a [Rinha de backen
 > ## Autor
 > ### Leandro Luque [@LinkedIn](https://www.linkedin.com/in/leandroluque/)
 > 
+> #### Repositório [@GitHub](https://github.com/leluque/rinha-2024q1)
+> 
 > As seguintes tecnologias foram utilizadas no projeto:
 > - `Nginx` como balanceador de carga;
 > - `Java 21` como linguagem de programação;
@@ -13,6 +15,7 @@ Este projeto contém uma implementação baseada em Java para a [Rinha de backen
 > - `Netty` como servidor web;
 > - `GraalVM` como ferramenta para a compilação do projeto para nativo;
 > - `PostgreSQL` como banco de dados.
+> - `Redis` como cache.
 
 ## Arquitetura
 
@@ -134,6 +137,8 @@ br.com.leandroluque.rinha/
 
 Existem dois pacotes principais: `negocio` e `adaptador`. O primeiro contém as classes de domínio e interfaces de serviço/repositório, enquanto o segundo contém a implementação destas interfaces, bem como uma API web implementada com Micronaut.
 Optou-se por não utilizar uma arquitetura com muitas classes para não aumentar desnecessariamente o uso de memória do projeto.
+
+![alt text](./DOCS/diagrama-classes.png "Diagrama de classes")
 
 ```plantuml
 @startuml
