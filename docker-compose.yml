@@ -36,9 +36,9 @@ services:
       BD_TYPE: postgres
       BD_USUARIO: usuario
       BD_SENHA: abc12345
-      BD_INITIAL_CONS: 11
-      BD_MAX_CONS: 13 
-      REDIS_THREAD_POOL_SIZE: 500
+      BD_INITIAL_CONS: 73
+      BD_MAX_CONS: 74
+      REDIS_THREAD_POOL_SIZE: 365
       REDIS_URL: redis://redis
     depends_on:
       - postgresql
@@ -60,13 +60,13 @@ services:
     <<: *api-template
     container_name: api2
 
-  api3:
-    <<: *api-template
-    container_name: api3
-
-  api4:
-    <<: *api-template
-    container_name: api4
+  #  api3:
+  #    <<: *api-template
+  #    container_name: api3
+  #
+  #  api4:
+  #    <<: *api-template
+  #    container_name: api4
 
   postgresql:
     container_name: postgresql
@@ -94,7 +94,7 @@ services:
                -c idle_in_transaction_session_timeout=0
                -c lock_timeout=0
                -c maintenance_work_mem=6400kB
-               -c max_connections=60
+               -c max_connections=150
                -c max_wal_size=4GB
                -c min_wal_size=1GB
                -c pg_stat_statements.max=10000
@@ -116,8 +116,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
-          memory: "160MB"
+          cpus: "0.90"
+          memory: "290MB"
     ulimits:
       nproc: 1000000
       nofile:
